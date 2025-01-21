@@ -149,9 +149,9 @@ public:
     }
 
     /**
-     * @brief Returns a const pointer to the beginning of the internal data.
+     * @brief Returns a pointer to the beginning of the internal data.
      */
-    [[nodiscard]] constexpr const element_t* data() const
+    [[nodiscard]] constexpr element_t* data() const
     {
         return _data;
     }
@@ -495,11 +495,6 @@ protected:
         _num_elements(num_elements),
         _data(data)
     {
-    }
-
-    [[nodiscard]] constexpr element_t* data()
-    {
-        return _data;
     }
 
     /// @endcond
