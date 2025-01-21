@@ -17,9 +17,9 @@ namespace bn::hw::keypad
         return ~REG_KEYINPUT & KEY_MASK;
     }
 
-    inline void set_interrupt(const span<const bn::keypad::key_type>& keys)
+    inline void set_interrupt(const span<const bn::keypad::key_type>& keys, unsigned operation = BIT(15))
     {
-        unsigned p1_cnt = BIT(14) | BIT(15);
+        unsigned p1_cnt = BIT(14) | operation;
 
         for(bn::keypad::key_type key : keys)
         {
