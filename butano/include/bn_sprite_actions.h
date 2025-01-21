@@ -15,6 +15,7 @@
  */
 
 #include "bn_sprite_ptr.h"
+#include "bn_math.h"
 #include "bn_value_template_actions.h"
 
 namespace bn
@@ -758,6 +759,9 @@ public:
      */
     static void set(fixed rotation_angle, sprite_ptr& sprite)
     {
+        rotation_angle = rotation_angle > 360 ? 360 : rotation_angle;
+        rotation_angle = rotation_angle < 0 ? 0 : rotation_angle;
+
         sprite.set_rotation_angle(rotation_angle);
     }
 };

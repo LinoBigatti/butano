@@ -764,7 +764,7 @@ public:
      */
     static void set(fixed scale, sprite_affine_mat_ptr& affine_mat)
     {
-        affine_mat.set_scale(scale);
+        affine_mat.set_scale(scale > 0 ? scale : 0.01);
     }
 };
 
