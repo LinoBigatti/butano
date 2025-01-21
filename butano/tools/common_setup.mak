@@ -77,10 +77,12 @@ all:
 #---------------------------------------------------------------------------------
 $(BUILD):
 	@$(PYTHON) -B $(BN_TOOLS)/butano_assets_tool.py --grit="$(BN_GRIT)" --mmutil="$(BN_MMUTIL)" \
-			--audio="$(AUDIO)" --dmg_audio="$(DMGAUDIO)" --graphics="$(GRAPHICS)" --build=$(BUILD)
+			--dmg_audio="$(DMGAUDIO)" --graphics="$(GRAPHICS)" --build=$(BUILD) --audio="" #--audio="$(AUDIO)" 
+	@$(MAKE) --no-print-directory -C $(AAS) -f Makefile conv2aas
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 #---------------------------------------------------------------------------------------------------------------------
 clean:
 	@echo clean ...
 	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).elf.* $(TARGET).gba $(USERBUILD)
+	@$(MAKE) --no-print-directory -C $(AAS) -f Makefile clean

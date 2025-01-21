@@ -13,7 +13,7 @@ namespace bn::hw::dma
 
 [[nodiscard]] constexpr int low_priority_channel()
 {
-    return 3;
+    return 0;
 }
 
 [[nodiscard]] constexpr int high_priority_channel()

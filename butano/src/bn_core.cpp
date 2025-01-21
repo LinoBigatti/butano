@@ -37,6 +37,8 @@
 #include "../hw/include/bn_hw_game_pak.h"
 #include "../hw/include/bn_hw_hblank_effects.h"
 
+#include "audio.h"
+
 #if BN_CFG_ASSERT_ENABLED
     #include "bn_assert_callback_type.h"
 #endif
@@ -147,7 +149,7 @@ namespace
     {
         hblank_effects_manager::enable();
         link_manager::enable();
-        audio_manager::enable();
+        //audio_manager::enable();
         hdma_manager::enable();
     }
 
@@ -157,7 +159,7 @@ namespace
 
         if(disable_vblank_irq)
         {
-            audio_manager::disable();
+            //audio_manager::disable();
         }
 
         link_manager::disable();
@@ -168,7 +170,7 @@ namespace
     {
         hw::core::wait_for_vblank();
 
-        audio_manager::stop();
+        //audio_manager::stop();
         hdma_manager::force_stop();
         hblank_effects_manager::stop();
         palettes_manager::stop();
@@ -244,7 +246,7 @@ namespace
         BN_PROFILER_ENGINE_DETAILED_STOP();
 
         BN_PROFILER_ENGINE_DETAILED_START("eng_audio_commands");
-        audio_manager::execute_commands();
+        //audio_manager::execute_commands();
         BN_PROFILER_ENGINE_DETAILED_STOP();
 
         BN_PROFILER_ENGINE_DETAILED_START("eng_display_commit");
@@ -305,7 +307,7 @@ namespace
         result.vblank_usage_ticks = data.cpu_usage_timer.elapsed_ticks();
 
         BN_PROFILER_ENGINE_DETAILED_START("eng_audio_commit");
-        audio_manager::commit();
+        //audio_manager::commit();
         BN_PROFILER_ENGINE_DETAILED_STOP();
 
         BN_PROFILER_ENGINE_GENERAL_STOP();
@@ -350,7 +352,10 @@ void init(const optional<color>& transparent_color, const string_view& keypad_co
     link_manager::init();
 
     // Init audio system:
-    audio_manager::init();
+    //audio_manager::init();
+
+    // Init custom Audio System
+    Audio::init();
 
     // Init storage systems:
     data.slow_game_pak = hw::game_pak::init();
@@ -437,7 +442,7 @@ void on_vblank()
     if(data.waiting_for_vblank)
     {
         BN_PROFILER_ENGINE_DETAILED_START("eng_audio_update");
-        audio_manager::update();
+        //audio_manager::update();
         BN_PROFILER_ENGINE_DETAILED_STOP();
 
         data.waiting_for_vblank = false;

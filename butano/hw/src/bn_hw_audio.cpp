@@ -198,7 +198,7 @@ namespace
 void init()
 {
     ::new(static_cast<void*>(&data)) static_data();
-
+    
     irq::set_isr(irq::id::VBLANK, mmVBlank);
     irq::enable(irq::id::VBLANK);
 

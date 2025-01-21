@@ -85,6 +85,11 @@ namespace bn::core
     void update();
 
     /**
+     * @brief VBlank handler routine
+     */
+    void on_vblank();
+
+    /**
      * @brief Sleeps the GBA until the given keypad key is pressed.
      */
     void sleep(keypad::key_type wake_up_key);

@@ -15,6 +15,8 @@ namespace bn::hw::audio
 {
     void init();
 
+    void init_with_soundbank(uint8_t *soundbank);
+
     void enable();
 
     void disable();
