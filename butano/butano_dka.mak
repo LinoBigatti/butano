@@ -27,7 +27,8 @@ include $(BN_TOOLS)/custom_base_rules.mak
 	$(SILENTCMD)$(OBJCOPY) -O binary $< $@
 	@echo Fixing $(notdir $@)...
 	$(SILENTCMD)gbafix -t"$(ROMTITLE)" -c"$(ROMCODE)" $@
-	$(SILENTCMD)cat $@ /dev/zero | dd bs=1024 count=$(BASE_ROM_SIZE)xMB of=$@
+	$(SILENTCMD)cat $@ /dev/zero | dd bs=1024 iflag=fullblock count=$(BASE_ROM_SIZE)K of=$@.pad
+	@mv $@.pad $@
 
 #---------------------------------------------------------------------------------------------------------------------
 # Butano custom link rules for avoiding issues when linking too many object files:
