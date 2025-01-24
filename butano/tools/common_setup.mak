@@ -76,17 +76,17 @@ all:
 	
 #---------------------------------------------------------------------------------
 $(BUILD):
-	@$(MAKE) --no-print-directory -C $(AAS) -f Makefile conv2aas
+	$(SILENTCMD)$(MAKE) --no-print-directory -C $(AAS) -f Makefile conv2aas
 	@$(PYTHON) -B $(BN_TOOLS)/butano_assets_tool.py --grit="$(BN_GRIT)" --mmutil="$(BN_MMUTIL)" \
 			--dmg_audio="$(DMGAUDIO)" --graphics="$(GRAPHICS)" --build=$(BUILD) --audio="" #--audio="$(AUDIO)" 
 	@find $(AUDIO)/sources -name "*.wav" -exec bash -c 'BASENAME=$$(basename "$$1"); $(SOX) "$$1" -S -b 8 -c 1 -r $(SAMPLE_RATE) $(AUDIO)/$${BASENAME%.*}.wav' sh {} \;
 	@$(CONV2AAS) $(AUDIO)
 	@mv AAS_Data.h $(_INCLUDE)/audio_data.h
 	@mv AAS_Data.s $(_SRC)/audio_data.s
-	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
+	$(SILENTCMD)$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 #---------------------------------------------------------------------------------------------------------------------
 clean:
 	@echo clean ...
 	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).elf.* $(TARGET).gba $(USERBUILD)
-	@$(MAKE) --no-print-directory -C $(AAS) -f Makefile clean
+	$(SILENTCMD)$(MAKE) --no-print-directory -C $(AAS) -f Makefile clean

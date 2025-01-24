@@ -27,6 +27,7 @@ include $(BN_TOOLS)/custom_base_rules.mak
 	$(SILENTCMD)$(OBJCOPY) -O binary $< $@
 	@echo Fixing $(notdir $@)...
 	$(SILENTCMD)gbafix -t"$(ROMTITLE)" -c"$(ROMCODE)" $@
+	$(SILENTCMD)cat $@ /dev/zero | dd bs=1024 count=$(BASE_ROM_SIZE)xMB of=$@
 
 #---------------------------------------------------------------------------------------------------------------------
 # Butano custom link rules for avoiding issues when linking too many object files:
@@ -37,7 +38,7 @@ ifdef ADD_COMPILE_COMMAND
 	$(ADD_COMPILE_COMMAND) end
 endif
 	@echo $(OFILES) > bn_ofiles.txt
-	$(SILENTCMD)$(LD) $(LDFLAGS) -specs=gba_mb.specs @bn_ofiles.txt $(LIBPATHS) $(LIBS) -o $@
+	$(SILENTCMD)$(LD) $(LDFLAGS) -specs=gba_mb.specs @bn_ofiles.txt $(LINK_SCRIPT) $(LIBPATHS) $(LIBS) -o $@
 	
 %.elf:
 	$(SILENTMSG) Linking ROM...
@@ -45,7 +46,7 @@ ifdef ADD_COMPILE_COMMAND
 	$(ADD_COMPILE_COMMAND) end
 endif
 	@echo $(OFILES) > bn_ofiles.txt
-	$(SILENTCMD)$(LD) $(LDFLAGS) -specs=gba.specs @bn_ofiles.txt $(LIBPATHS) $(LIBS) -o $@
+	$(SILENTCMD)$(LD) $(LDFLAGS) -specs=gba.specs @bn_ofiles.txt $(LINK_SCRIPT) $(LIBPATHS) $(LIBS) -o $@
 
 #---------------------------------------------------------------------------------------------------------------------
 # Options for code generation:
