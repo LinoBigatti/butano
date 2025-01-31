@@ -19,6 +19,12 @@ static_assert(BN_CFG_SRAM_WAIT_STATE == BN_SRAM_WAIT_STATE_4 ||
 namespace
 {
     // https://gbadev.net/forum-archive/thread/4/2825.html
+    // http://problemkaputt.de/gbatek.htm#gbacartbackupids
+    // EEPROM_Vnnn = EEPROM 512 bytes or 8 KB
+    // SRAM_Vnnn = SRAM 32KB
+    // FLASH_Vnnn = FLASH 64KB
+    // FLASH512_Vnnn = FLASH 64KB (Newer files)
+    // FLASH1M_Vnnn = FLASH 128 KB 
     alignas(int) const char save_string[] = "SRAM_V113";
 }
 
